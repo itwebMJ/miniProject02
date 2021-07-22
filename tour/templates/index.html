@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>encore board</title>
+</head>
+<body>
+<ul>
+    {% if 'id' in session %}
+    <li>
+    {{session.id}}님 {{msg}}<a href="/member/logout">로그아웃</a>
+    </li>
+    <li><a href="/member/getmember">내정보 확인</a></li>
+    <li><a href="/board/list">게시판</a></li>
+    <li><a href="/businfo">버스정보</a></li>
+    {% else %}
+    <li><a href="/member/login">로그인</a></li>
+    {% endif %}
+
+    <li><a href="/location">지역</a></li>
+
+</ul>
+</body>
+</html>

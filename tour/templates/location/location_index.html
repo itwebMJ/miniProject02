@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+
+    {% for area in areaList %}
+    <tr>
+        <td><img src="{{area.firstimage}}" style="width:150px;height=150px"/></td>
+        <td><a href="/location/detail?routeId={{area.title}}">{{area.title}}</a></td>
+        <td>{{area.addr1}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
