@@ -7,8 +7,10 @@ areaService = loc.AreaService()
 
 @bp.route('/area-code')
 def area_code(): #http://127.0.0.1:5000/location/code
-    areas = areaService.areaCode(10, 1)    #10개 데이터(numOfRows) 페이지 번호(pageNo)
-    return render_template('location/area_code.html', areas=areas)
+    areas = areaService.areaCode(17, 1)    #10개 데이터(numOfRows) 페이지 번호(pageNo)
+    cart1_list = areaService.categoryCode_cart1()       # 대분류
+    cart2_list = areaService.categoryCode_cart2(12)     # 중불류
+    return render_template('location/area_code.html', areas=areas, cart1_list=cart1_list, cart2_list=cart2_list)
 
 @bp.route('/list')
 def areaList(): #http://127.0.0.1:5000/location/list

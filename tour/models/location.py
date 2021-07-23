@@ -67,18 +67,98 @@ class AreaService:
         #페이지 포함한 url
         self.page_url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/%s?ServiceKey=%s&%s=%s&%s=%s&MobileOS=ETC&MobileApp=TestApp'
         self.apiKey = '4tdDtEO6U6Iu3LUIgh5CaYYiZfUj9XrwBjOpicIiJxWHmGWOQbO8Pr9q8R8kNeptActfQZHmfho%2BT2Euxcn2zQ%3D%3D'
-#http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/areaCode?ServiceKey=4tdDtEO6U6Iu3LUIgh5CaYYiZfUj9XrwBjOpicIiJxWHmGWOQbO8Pr9q8R8kNeptActfQZHmfho%2BT2Euxcn2zQ%3D%3D&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=TestApp
+        #http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/areaCode?ServiceKey=4tdDtEO6U6Iu3LUIgh5CaYYiZfUj9XrwBjOpicIiJxWHmGWOQbO8Pr9q8R8kNeptActfQZHmfho%2BT2Euxcn2zQ%3D%3D&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=TestApp
+
     def areaCode(self, numOfRows, pageNo):
         url = self.page_url%('areaCode', self.apiKey, 'numOfRows', numOfRows, 'pageNo', pageNo) # 한 페이지에 출력할 데이터 개수
         html = requests.get(url).text
         root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
         code = root.find('resultCode').get_text()
         msg = root.find('resultMsg').get_text()
-        print('url:', url)
+        print('처리결과:', msg)
+        vo_list = []
+        if code =='0000':
+            items = root.select('item')
+            try:
+                for item in items:
+                    code = item.find('code').get_text()
+                    name = item.find('name').get_text()
+                    rnum = item.find('rnum').get_text()
+                    vo_list.append(AreaCodeVo(code=code, name=name, rnum=rnum))
+            except Exception as e:
+                print(e)
+            finally:
+                return vo_list
+
+    def categoryCode_cart1(self):       # 대분류
+        url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/categoryCode?ServiceKey=4tdDtEO6U6Iu3LUIgh5CaYYiZfUj9XrwBjOpicIiJxWHmGWOQbO8Pr9q8R8kNeptActfQZHmfho%2BT2Euxcn2zQ%3D%3D&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest'
+        html = requests.get(url).text
+        root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
+        code = root.find('resultCode').get_text()
+        msg = root.find('resultMsg').get_text()
+        print('처리결과:', msg)
+        '''
+        <item>
+        <code>A01</code>
+        <name>자연</name>
+        <rnum>1</rnum>
+        </item>
+        <item>
+        <code>A02</code>
+        <name>인문(문화/예술/역사)</name>
+        <rnum>2</rnum>
+        </item>
+        <item>
+        <code>C01</code>
+        <name>추천코스</name>
+        <rnum>7</rnum>
+        </item>
+        '''
+        vo_list = []
+        if code == '0000':
+            items = root.select('item')
+            try:
+                for item in items:
+                    code = item.find('code').get_text()
+                    name = item.find('name').get_text()
+                    rnum = item.find('rnum').get_text()
+                    vo_list.append(AreaCodeVo(code=code, name=name, rnum=rnum))
+            except Exception as e:
+                print(e)
+            finally:
+                return vo_list
+
+    def categoryCode_cart2(self, contentTypeId):       # 중분류
+        url = self.url % ('categoryCode', self.apiKey, 'contentTypeId', contentTypeId)  # 한 페이지에 출력할 데이터 개수
+        html = requests.get(url).text
+        root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
+        code = root.find('resultCode').get_text()
+        msg = root.find('resultMsg').get_text()
         print('처리결과:', msg)
 
         vo_list = []
-        if code =='0000':
+        if code == '0000':
+            items = root.select('item')
+            try:
+                for item in items:
+                    code = item.find('code').get_text()
+                    name = item.find('name').get_text()
+                    rnum = item.find('rnum').get_text()
+                    vo_list.append(AreaCodeVo(code=code, name=name, rnum=rnum))
+            except Exception as e:
+                print(e)
+            finally:
+                return vo_list
+
+    def categoryCode_cart3(self):       # 소분류
+        url = self.url % ('categoryCode', self.apiKey, '', '')  # 한 페이지에 출력할 데이터 개수
+        html = requests.get(url).text
+        root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
+        code = root.find('resultCode').get_text()
+        msg = root.find('resultMsg').get_text()
+        print('처리결과:', msg)
+        vo_list = []
+        if code == '0000':
             items = root.select('item')
             try:
                 for item in items:
