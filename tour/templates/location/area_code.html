@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<br/><br/>
+<h3>지역별 관광지 검색</h3>
+<nac class="area_menu">
+    <ul>
+        {% for a in areas %}
+        <li><a href="/location/list?areaCode={{a.code}}">{{a.name}}</a></li>
+        {% endfor %}
+    </ul>
+</nac>
+</body>
+</html>

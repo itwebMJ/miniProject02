@@ -11,7 +11,13 @@ class Location:     #location 테이블
         self.cat3 = cat3
         self.count = count
 
-class areaBasedVo:
+class AreaCodeVo:
+    def __init__(self, code=None, name=None, rnum=None):
+        self.code = code
+        self.name = name
+        self.rnum = rnum
+
+class AreaBasedVo:
     def __init__(self, addr1=None, areacode=None, cat1=None, cat2=None, cat3=None, contentid=None,
                  contenttypeid=None, createdtime=None, firstimage=None, firstimage2=None, mapx=None, mapy=None,
                  mlevel=None, modifiedtime=None, readcount=None, sigungucode=None, title=None, zipcode=None):
@@ -59,26 +65,32 @@ class AreaService:
     def __init__(self):
         self.url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/%s?ServiceKey=%s&%s=%s&MobileOS=ETC&MobileApp=TestApp'
         #페이지 포함한 url
-        self.page_url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/%s?ServiceKey=%s&%s=%s&pageNo=1&MobileOS=ETC&MobileApp=TestApp'
+        self.page_url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/%s?ServiceKey=%s&%s=%s&%s=%s&MobileOS=ETC&MobileApp=TestApp'
         self.apiKey = '4tdDtEO6U6Iu3LUIgh5CaYYiZfUj9XrwBjOpicIiJxWHmGWOQbO8Pr9q8R8kNeptActfQZHmfho%2BT2Euxcn2zQ%3D%3D'
-
-    def areaCode(self, numOfRows):
-        url = self.url%('areaCode', self.apiKey, 'numOfRows', numOfRows) # 한 페이지에 출력할 데이터 개수
+#http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/areaCode?ServiceKey=4tdDtEO6U6Iu3LUIgh5CaYYiZfUj9XrwBjOpicIiJxWHmGWOQbO8Pr9q8R8kNeptActfQZHmfho%2BT2Euxcn2zQ%3D%3D&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=TestApp
+    def areaCode(self, numOfRows, pageNo):
+        url = self.page_url%('areaCode', self.apiKey, 'numOfRows', numOfRows, 'pageNo', pageNo) # 한 페이지에 출력할 데이터 개수
         html = requests.get(url).text
         root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
         code = root.find('resultCode').get_text()
         msg = root.find('resultMsg').get_text()
+        print('url:', url)
         print('처리결과:', msg)
 
         vo_list = []
         if code =='0000':
-            items = root.select('items')
-            for item in items:
-                code = item.find('code').get_text()
-                name = item.find('name').get_text()
-                rnum = item.find('rnum').get_text()
-                vo_list.append(Location(area_code=code, area_name=name))
-            return vo_list
+            items = root.select('item')
+            try:
+                for item in items:
+                    code = item.find('code').get_text()
+                    name = item.find('name').get_text()
+                    rnum = item.find('rnum').get_text()
+                    vo_list.append(AreaCodeVo(code=code, name=name, rnum=rnum))
+            except Exception as e:
+                print(e)
+            finally:
+                return vo_list
+
 
 
     def areaBasedList(self, areaCode):
@@ -101,7 +113,7 @@ class AreaService:
                     firstimage = item.find('firstimage').get_text()
                     firstimage2 = item.find('firstimage2').get_text()
                     sigungucode = item.find('sigungucode').get_text()
-                    vo_list.append(areaBasedVo(areacode=areacode, addr1=addr1, contentid=contentid, title=title,
+                    vo_list.append(AreaBasedVo(areacode=areacode, addr1=addr1, contentid=contentid, title=title,
                                                firstimage=firstimage, firstimage2=firstimage2,
                                                sigungucode=sigungucode))
             except Exception as e:

@@ -5,9 +5,16 @@ bp = Blueprint('location', __name__, url_prefix='/location')
 areaService = loc.AreaService()
 
 
-@bp.route('/')
-def list(): #http://127.0.0.1:5000/location/
-    areaList = areaService.areaBasedList(35)    #경북지역코드 35
+@bp.route('/area-code')
+def area_code(): #http://127.0.0.1:5000/location/code
+    areas = areaService.areaCode(10, 1)    #10개 데이터(numOfRows) 페이지 번호(pageNo)
+    return render_template('location/area_code.html', areas=areas)
+
+@bp.route('/list')
+def areaList(): #http://127.0.0.1:5000/location/list
+    areaCode = request.args.get('areaCode', 0, int)
+    print(areaCode)
+    areaList = areaService.areaBasedList(areaCode)    #경북지역코드 35
     return render_template('location/location_index.html', areaList=areaList)
 
 @bp.route('/get')
