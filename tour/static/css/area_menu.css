@@ -1,0 +1,43 @@
+<style>
+/* area_code.html 의 지역 메뉴부분 */
+body, ul, li{
+    display:block;
+    list-style:none;
+    padding:0px;
+    margin:0px;
+}
+a{
+    text-decoration:none;
+    color:inherit;
+}
+.area_menu{
+    text-align:center;
+}
+.area_menu>ul{
+    width:980px;
+    background-color:#dfdfdf;
+    display:inline-block;
+    padding:0 10px;
+    border-radius:30px;
+}
+.area_menu>ul>li{
+    display:inline-block;
+    width:150px;
+}
+.area_menu>ul>li>a{
+    display:block;
+    padding:10px;
+}
+.area_menu>ul>li:hover>a{
+    color:white;
+    background-color:black;
+}
+/* 지역 메뉴 밑 이미지 css*/
+.area_show_images{
+    margin:10px;
+}
+.area_show_images img{
+    width:320px;
+    height:213px;
+}
+</style

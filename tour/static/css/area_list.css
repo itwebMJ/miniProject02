@@ -1,0 +1,48 @@
+<style>
+.list_thumType > li.bdr_nor{
+    border-top: 1px solid #e6e6e6;
+}
+.list_thumType > li{
+    padding: 15px 0;
+}
+.list_thumType > li{
+    position: relative;
+    padding: 20px 0;
+    border-bottom: 1px solid #e6e6e6;
+}
+dl, ul, ol, menu, li{
+    list-style: none;
+}
+.list_thumType > li .photo img{
+    float:left;
+    width: 150px;
+    height: 100px;
+}
+img, label{
+    vertical-align: middle;
+}
+fieldset, img{
+    border: 0 none;
+}
+.list_thumType > li .area_txt{
+    padding-left: 150px;
+}
+.list_thumType > li .area_txt{
+    min-height: 94px;
+    padding-left: 160px;
+    padding-right: 20px;
+}
+.list_thumType > li .area_txt .tit a{
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+a:link, a:visited, a:hover, a:focus, a:active{
+    text-decoration: none;
+}
+</style>
