@@ -60,6 +60,12 @@ areaBasedList
 <title>가야산 야생화식물원</title>
 <zipcode>40063</zipcode>
 '''
+class detailImageVo:
+    def __init__(self, contentid=None, originimgurl=None, serialnum=None, smallimageurl=None):
+        self.contentid = contentid
+        self.originimgurl = originimgurl
+        self.serialnum = serialnum
+        self.smallimageurl = smallimageurl
 
 class AreaService:
     def __init__(self):
@@ -150,31 +156,9 @@ class AreaService:
             finally:
                 return vo_list
 
-    def categoryCode_cart3(self):       # 소분류
-        url = self.url % ('categoryCode', self.apiKey, '', '')  # 한 페이지에 출력할 데이터 개수
-        html = requests.get(url).text
-        root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
-        code = root.find('resultCode').get_text()
-        msg = root.find('resultMsg').get_text()
-        print('처리결과:', msg)
-        vo_list = []
-        if code == '0000':
-            items = root.select('item')
-            try:
-                for item in items:
-                    code = item.find('code').get_text()
-                    name = item.find('name').get_text()
-                    rnum = item.find('rnum').get_text()
-                    vo_list.append(AreaCodeVo(code=code, name=name, rnum=rnum))
-            except Exception as e:
-                print(e)
-            finally:
-                return vo_list
-
-
-
-    def areaBasedList(self, areaCode):
-        url = self.url%('areaBasedList', self.apiKey, 'areaCode', areaCode) # 한 페이지에 출력할 데이터 개수
+    def areaBasedList(self, areaCode, numOfRows, pageNo):       #지역코드로 검색하는 리스트
+        url = self.page_url%('areaBasedList', self.apiKey, 'areaCode', areaCode,
+                                    'numOfRows', str(numOfRows)+'&pageNo='+str(pageNo))
         html = requests.get(url).text
         root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
         code = root.find('resultCode').get_text()
@@ -196,6 +180,59 @@ class AreaService:
                     vo_list.append(AreaBasedVo(areacode=areacode, addr1=addr1, contentid=contentid, title=title,
                                                firstimage=firstimage, firstimage2=firstimage2,
                                                sigungucode=sigungucode))
+            except Exception as e:
+                print(e)
+            finally:
+                return vo_list
+
+    def detailCommon(self, contentId):      #이미지 없는 detail
+        url = self.url %('detailCommon', self.apiKey, 'contentId', str(contentId)+'&defaultYN=Y')
+        # 추가 파라미터'&defaultYN=Y&addrinfoYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTest'
+        #addrinfoYN : 주소정보, overviewYN :설명
+        html = requests.get(url).text
+        root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
+        code = root.find('resultCode').get_text()
+        msg = root.find('resultMsg').get_text()
+
+        vo_list = []
+        if code == '0000':
+            items = root.select('item')
+            try:
+                for item in items:
+                    contentid = item.find('contentid').get_text()
+                    contenttypeid = item.find('contenttypeid').get_text()
+                    homepage = item.find('homepage').get_text()
+                    title = item.find('title').get_text()
+                    firstimage = item.find('firstimage').get_text()
+                    firstimage2 = item.find('firstimage2').get_text()
+                    sigungucode = item.find('sigungucode').get_text()
+                    #vo_list.append(AreaBasedVo(areacode=areacode, addr1=addr1, contentid=contentid, title=title,
+                    #                          firstimage=firstimage, firstimage2=firstimage2,
+                    #                         sigungucode=sigungucode))
+            except Exception as e:
+                print(e)
+            finally:
+                return vo_list
+
+
+    def detailImage(self, contentId):      #이미지 없는 detail
+        url = self.url%('detailImage', self.apiKey, 'contentId', str(contentId)+'&imageYN=Y')
+        html = requests.get(url).text
+        root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
+        code = root.find('resultCode').get_text()
+        print(url)
+        vo_list = []
+        if code == '0000':
+            items = root.select('item')
+            try:
+                for item in items:
+                    contentid = item.find('contentid').get_text()
+                    originimgurl = item.find('originimgurl').get_text()
+                    serialnum = item.find('serialnum').get_text()
+                    smallimageurl = item.find('smallimageurl').get_text()
+
+                    vo_list.append(detailImageVo(contentid=contentid, originimgurl=originimgurl,
+                                              serialnum=serialnum, smallimageurl=smallimageurl))
             except Exception as e:
                 print(e)
             finally:

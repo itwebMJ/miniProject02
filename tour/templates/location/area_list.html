@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../static/css/web.css">
+</head>
+<body>
+<br/><br/><br/><br/>
+<h3>지역별 관광지 검색</h3>
+    <div class="box_leftType1">
+        <ul class="list_thumType flnon">
+            {% for area in areaList %}
+            <li class="bdr_nor">
+                <div class="photo">
+                    <a href="javascript:" onclick="goDetail();">
+                        <img src="{{area.firstimage}}" alt="{{area.title}}">
+                        <input type="hidden" value="{{area.contentid}}">
+                    </a>
+                </div>
+                <div class="area_txt">
+                    <div class="tit">
+                        <a href="javascript:" onclick="goDetail();">{{area.title}}</a>
+                    </div>
+                    <p>{{area.addr1}}</p>
+                </div>
+
+            </li>
+            {% endfor %}
+        </ul>
+        <!-- paging -->
+         <!--
+        <div class="page_box">
+            <a class="on" href="javascript:" id="1">1<span class="blind">현재 위치</span></a> <a href="javascript:" id="2">2</a>  <a href="javascript:" id="3">3</a>  <a href="javascript:" id="4">4</a>  <a href="javascript:" id="5">5</a>  <a href="javascript:" class="btn_next ico" id="6">다음</a><a class="btn_last ico" href="javascript:" id="343">끝</a></div>
+        -->
+        <!-- //paging -->
+    </div>
+
+</body>
+</html>

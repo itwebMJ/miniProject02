@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- css 연결 -->
+    <link rel="stylesheet" href="../../static/css/area_menu.css">
+    <!-- w3 css 연결-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<br/><br/>
+<h3>지역별 관광지 검색</h3>
+<nac class="area_menu">
+    <ul>
+        {% for a in areas %}
+        <li><a href="/location/list?areaCode={{a.code}}">{{a.name}}</a></li>
+        {% endfor %}
+    </ul>
+</nac>
+
+<!--
+<div class="w3-bar w3-black">
+<a href="/location/list?areaCode=" class="w3-bar-item w3-button"></a>
+</div>
+-->
+<br/><br/>
+<div class="area_show_images">
+
+<a href=#">
+    <img src="{{img_1[0].originimgurl}}" class="w3-hover-opacity" alt="">
+</a>
+<a href=#">
+    <img src="{{img_2[0].originimgurl}}" class="w3-hover-opacity" alt="{{img_2[0].originimgurl}}">
+</a>
+<a href=#">
+    <img src="{{img_3[0].originimgurl}}" class="w3-hover-opacity" alt="{{img_3[0].smallimageurl}}">
+</a>
+</div>
+
+
+
+</body>
+</html>
