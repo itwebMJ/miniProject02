@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>플레이데이터:로그인</title>
+    <script>
+        function login(){
+            var check1 = ["id", "pwd"];
+            var check2 = {{mem|tojson}};
+            if(document.getElementById(check1[0]).value == ""){
+                var span_tag = document.getElementById("sp1");
+                span_tag.innerHTML = "아이디를 입력해주세요.";
+                span_tag = document.getElementById("sp2");
+                span_tag.innerHTML = "";
+                return;
+            }
+            else if(document.getElementById(check1[1]).value == ""){
+                var span_tag = document.getElementById("sp1");
+                span_tag.innerHTML = "";
+                span_tag = document.getElementById("sp2");
+                span_tag.innerHTML = "비밀번호를 입력해주세요.";
+                return;
+            }
+            var check3 = 0;
+            for(i = 0; i < check2.length; ++i){
+                if(check2[i][0] == document.getElementById(check1[0]).value &&
+                check2[i][1] == document.getElementById(check1[1]).value){
+                    check3 = 1;
+                    break;
+                }
+            }
+            if(check3 == 0){
+                var span_tag = document.getElementById("sp2");
+                span_tag.innerHTML = "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.";
+                return;
+            }
+            var form = document.createElement('form');
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', '/member/login');
+
+            var hiddenfield = document.createElement('input');
+            hiddenfield.setAttribute('name', check1[0]);
+            hiddenfield.setAttribute('value', document.getElementById(check1[0]).value);
+            form.appendChild(hiddenfield);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</head>
+<body>
+<center><a href="/"><img src="../../static/img/playdata_logo.png" style="width:300px;height:80px;position:relative;top:100px;"></a></center>
+<center><input type="text" style="width:390px;height:50px;position:relative;top:200px; padding-left: 10px;"
+               id="id" name="id" placeholder="아이디"></center>
+<span id="sp1" style="position:relative;top:200px;left:555px;color:red;"></span>
+<center><input type="password" style="width:390px;height:50px;position:relative;top:220px; padding-left: 10px;"
+               id="pwd" name="pwd" placeholder="비밀번호"></center>
+<span id="sp2" style="position:relative;top:220px;left:555px;color:red;"></span>
+<center><input type="button" style="width:410px;height:60px;position:relative;top:240px;" value="로그인" onclick="login()"></center>
+<hr style="border:1px color= silver; position:relative; top:250px;" width="27%">
+<center><a href="/member/insert" style="position:relative; top:260px;">회원가입</a></center>
+</body>
+</html>

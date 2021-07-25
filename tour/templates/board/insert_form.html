@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>플레이데이터:글쓰기</title>
+    <script>
+        function insert(){
+            var form = document.createElement('form');
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', '/board/insert');
+            var check = ["loc", "title", "content", "img_path"];
+            for(i = 0; i < 4; ++i){
+                var hiddenfield = document.createElement('input');
+                hiddenfield.setAttribute('name', check[i]);
+                hiddenfield.setAttribute('value', document.getElementById(check[i]).value);
+                form.appendChild(hiddenfield);
+            }
+            document.body.appendChild(form);
+            alert("게시글이 등록되었습니다.");
+            form.submit();
+        }
+    </script>
+</head>
+<body>
+<table style="position:relative;top:10px;left:200px;">
+    <tr><td>ⓘ</td><td>고객님의 안전이 최우선!</td></tr>
+    <tr><td></td><td>코로나19에 대한 여행안내</td></tr>
+</table>
+<hr style="border:1px color= silver;" width="90%">
+<a href="/"><img src="../static/img/playdata_logo.png" style="width:150px;height:40px;position:relative;top:10px;left:200px;"></a>
+<table style="position:relative;top:-15px;left:1200px;">
+    <tr><td>{{session.id}}님&nbsp</td><td><a href="/member/logout">로그아웃</a></td></tr>
+</table>
+<table style="position:relative;top:50px;left:150px;font-size:30px;">
+    <tr><td>글쓰기</td></tr>
+</table>
+<input type="button" value="등록" style="position:relative;top:60px;left:1270px;width:80px;height:30px;" onclick="insert()">
+<hr style="border:1px color= silver;position:relative;top:60px;" width="80%">
+<input type="text" style="width:1200px;height:40px;position:relative;top:60px;left:150px;padding-left:10px;"
+               id="loc" name="loc" placeholder="여행지를 입력해 주세요.">
+<input type="text" style="width:1200px;height:40px;position:relative;top:80px;left:150px;padding-left:10px;"
+               id="title" name="title" placeholder="제목을 입력해 주세요.">
+<textarea rows="15" cols="45"
+style="width:1200px;height:280px;position:relative;top:100px;left:150px;padding-left:10px;padding-top:30px;resize:none;font-size:15px;"
+id="content" name="content" placeholder="내용을 입력하세요."></textarea>
+<p style="position:relative;top:100px;left:150px;width:80px;height:30px;"><input type="file" name="img_path" id="img_path"></p>
+</body>
+</html>

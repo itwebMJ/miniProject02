@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<br/><br/><br/><br/>
+<h3>키워드로 관광지 검색</h3>
+<form action="/location/search" method="post">
+  <input type="text" name="keyword"><br/>
+  <input type="submit" value="검색" class="">
+</form>
+    <div class="box_leftType1">
+        <ul class="list_thumType flnon">
+            {% for area in searchList %}
+            <li class="bdr_nor">
+                <div class="photo">
+                    <a href="javascript:" onclick="goDetail();">
+                        <img src="{{area.firstimage}}" alt="{{area.title}}">
+                        <input type="hidden" value="{{area.contentid}}">
+                    </a>
+                </div>
+                <div class="area_txt">
+                    <div class="tit">
+                        <a href="javascript:" onclick="goDetail();">{{area.title}}</a>
+                    </div>
+                    <p>{{area.addr1}}</p>
+                </div>
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>

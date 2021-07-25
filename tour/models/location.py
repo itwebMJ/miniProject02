@@ -67,6 +67,19 @@ class detailImageVo:
         self.serialnum = serialnum
         self.smallimageurl = smallimageurl
 
+class DetailCommon:
+    def __init__(self, addr1=None, addr2=None, contentid=None, contenttypeid=None,
+                 homepage=None, createdtime=None, overview=None, firstimage=None, title=None):
+        self.addr1 = addr1
+        self.addr2 = addr2
+        self.contentid = contentid
+        self.contenttypeid = contenttypeid
+        self.homepage = homepage
+        self.createdtime = createdtime
+        self.overview = overview
+        self.firstimage = firstimage
+        self.title = title
+
 class AreaService:
     def __init__(self):
         self.url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/%s?ServiceKey=%s&%s=%s&MobileOS=ETC&MobileApp=TestApp'
@@ -186,29 +199,32 @@ class AreaService:
                 return vo_list
 
     def detailCommon(self, contentId):      #이미지 없는 detail
-        url = self.url %('detailCommon', self.apiKey, 'contentId', str(contentId)+'&defaultYN=Y')
+        url = self.url %('detailCommon', self.apiKey, 'contentId', str(contentId)+'&defaultYN=Y&firstImageYN=Y&addrinfoYN=Y&overviewYN=Y')
+        print(url)
         # 추가 파라미터'&defaultYN=Y&addrinfoYN=Y&overviewYN=Y&MobileOS=ETC&MobileApp=AppTest'
-        #addrinfoYN : 주소정보, overviewYN :설명
+        #defaultYN=Y : 필수, firstImageYN : 이미지, addrinfoYN : 주소정보, overviewYN :설명
         html = requests.get(url).text
         root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
         code = root.find('resultCode').get_text()
         msg = root.find('resultMsg').get_text()
-
+        print(msg)
         vo_list = []
         if code == '0000':
             items = root.select('item')
             try:
                 for item in items:
+                    addr1 = item.find('addr1').get_text()
                     contentid = item.find('contentid').get_text()
                     contenttypeid = item.find('contenttypeid').get_text()
-                    homepage = item.find('homepage').get_text()
-                    title = item.find('title').get_text()
                     firstimage = item.find('firstimage').get_text()
-                    firstimage2 = item.find('firstimage2').get_text()
-                    sigungucode = item.find('sigungucode').get_text()
-                    #vo_list.append(AreaBasedVo(areacode=areacode, addr1=addr1, contentid=contentid, title=title,
-                    #                          firstimage=firstimage, firstimage2=firstimage2,
-                    #                         sigungucode=sigungucode))
+                    homepage = item.find('homepage').get_text()
+                    createdtime = item.find('createdtime').get_text()
+                    title = item.find('title').get_text()
+                    overview = item.find('overview').get_text()
+                    print(addr1+contentid+homepage+title+overview )
+                    vo_list.append(DetailCommon(addr1=addr1, contentid=contentid, title=title,
+                                    firstimage=firstimage, overview=overview, contenttypeid=contenttypeid,
+                                    homepage=homepage, createdtime=createdtime))
             except Exception as e:
                 print(e)
             finally:
@@ -220,7 +236,7 @@ class AreaService:
         html = requests.get(url).text
         root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
         code = root.find('resultCode').get_text()
-        print(url)
+
         vo_list = []
         if code == '0000':
             items = root.select('item')
@@ -238,3 +254,32 @@ class AreaService:
             finally:
                 return vo_list
 
+    def searchKeyword(self, keyword):      #키워드로 검색
+        keyword = keyword.encode("UTF-8")
+        print(keyword)
+        url = self.url%('searchKeyword', self.apiKey, 'keyword', keyword)
+        html = requests.get(url).text
+        root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
+        code = root.find('resultCode').get_text()
+        print(url)
+        vo_list = []
+        if code == '0000':
+            items = root.select('item')
+            try:
+                for item in items:
+                    addr1 = item.find('addr1').get_text()
+                    areacode = item.find('areacode').get_text()
+                    contentid = item.find('contentid').get_text()
+                    title = item.find('title').get_text()
+                    firstimage = item.find('firstimage').get_text()
+                    firstimage2 = item.find('firstimage2').get_text()
+                    mapx = item.find('mapx').get_text()
+                    mapy = item.find('mapy').get_text()
+                    sigungucode = item.find('sigungucode').get_text()
+                    vo_list.append(AreaBasedVo(areacode=areacode, addr1=addr1, contentid=contentid, title=title,
+                                               firstimage=firstimage, firstimage2=firstimage2,
+                                               sigungucode=sigungucode))
+            except Exception as e:
+                print(e)
+            finally:
+                return vo_list

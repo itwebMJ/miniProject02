@@ -45,4 +45,35 @@ fieldset, img{
 a:link, a:visited, a:hover, a:focus, a:active{
     text-decoration: none;
 }
+/* area_list.html */
+.list_detail{
+    padding-left:140px;
+    padding-top:40px;
+    position: relative;
+}
+.list_detail > li .area_txt{
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+    font-size: 30px;
+    color: #000;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.list_detail > li .area_addr{
+    overflow: hidden;
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+    font-size: 17px;
+    color: #000;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.list_detail > li .photo img{
+    /*float:left;*/
+    width: 550px;
+    height:auto;
+}
 </style>

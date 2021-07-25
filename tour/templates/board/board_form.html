@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>플레이데이터:게시판</title>
+    <script>
+        function insert(){
+            if("{{session["id"]}}"){
+                location.href = "/board/insert";
+            }
+        }
+
+        function search(){
+            var idx = document.getElementById("option").options.selectedIndex;
+            var val1 = document.getElementById("option").options[idx].value;
+            var val2 = document.getElementById("word").value;
+            if(!val2){
+                return;
+            }
+
+            var form = document.createElement('form');
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', '/board/search');
+
+            var check1 = ["option", "word"];
+            var check2 = [val1, val2];
+            for(i = 0; i < 2; ++i){
+                var hiddenfield = document.createElement('input');
+                hiddenfield.setAttribute('name', check1[i]);
+                hiddenfield.setAttribute('value', check2[i]);
+                form.appendChild(hiddenfield);
+            }
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</head>
+<body>
+<table style="position:relative;top:10px;left:200px;">
+    <tr><td>ⓘ</td><td>고객님의 안전이 최우선!</td></tr>
+    <tr><td></td><td>코로나19에 대한 여행안내</td></tr>
+</table>
+<hr style="border:1px color= silver;" width="90%">
+<a href="/"><img src="../static/img/playdata_logo.png" style="width:150px;height:40px;position:relative;top:10px;left:200px;"></a>
+{% if session.id %}
+<table style="position:relative;top:-15px;left:1200px;">
+    <tr><td>{{session.id}}님&nbsp</td><td><a href="/member/logout">로그아웃</a></td></tr>
+</table>
+{% else%}
+<table style="position:relative;top:-15px;left:1200px;">
+    <tr><td><a href="/member/">로그인</a></td></tr>
+</table>
+{% endif %}
+<table style="position:relative;top:50px;left:150px;font-size:30px;" >
+    <tr><td>후기 게시판</td></tr>
+</table>
+<input type="button" value="글쓰기" style="position:relative;top:60px;left:1270px;width:80px;height:30px;" onclick="insert()">
+<hr style="border:1px color= silver;position:relative;top:60px;" width="80%">
+<table border="1" style="position:relative;top:70px;left:150px;font-size:15px;border-collapse:collapse;border-left:1px white;border-right:1px white;">
+    <tr>
+        <th style="width:50px;height:25px;border-right:1px white;border-left:ipx white;">No</th>
+        <th style="width:900px;height:25px;border-right:1px white;border-left:ipx white;">제목</th>
+        <th style="width:130px;height:25px;border-right:1px white;border-left:ipx white;">글쓴이</th>
+        <th style="width:130px;height:25px;border-right:1px white;border-left:ipx white;">작성시간</th>
+    </tr>
+    {% for i in range((page - 1) * 10, (page - 1) * 10 + 10) %}
+    {% if bd[i] %}
+    <tr>
+        <th style="width:50px;height:25px;border-right:1px white;border-left:ipx white;">{{bd[i].num}}</th>
+        <th style="width:50px;height:25px;border-right:1px white;border-left:ipx white;">
+            <a href="/board/detail?num={{i.num}}">{{bd[i].title}}</a></th>
+        <th style="width:50px;height:25px;border-right:1px white;border-left:ipx white;">{{bd[i].writer}}</th>
+        <th style="width:50px;height:25px;border-right:1px white;border-left:ipx white;">{{bd[i].w_date}}</th>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+<center style="position:relative;top:80px;">
+    {% for i in range(bd|length // 10 + 1) %}
+    <a href="/board/?page={{i + 1}}">{{i + 1}}</a>
+    {% endfor %}
+</center>
+<center style="position:relative;top:100px;"><select name="option" id="option" style="width:80px;height:30px;">
+    <option value="title">제목</option><option value="writer">작성자</option></select>
+    <input type="text" style="width:250px;height:24px;padding-left:10px;" id="word" name="word" placeholder="검색어를 입력해주세요.">
+    <input type="button" value="검색" style="width:80px;height:30px;" onclick="search()">
+</center>
+</body>
+</html>

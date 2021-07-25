@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table style="position:relative;top:10px;left:200px;">
+    <tr><td>ⓘ</td><td>고객님의 안전이 최우선!</td></tr>
+    <tr><td></td><td>코로나19에 대한 여행안내</td></tr>
+</table>
+<hr style="border:1px color= silver;" width="90%">
+<a href="/"><img src="../static/img/playdata_logo.png" style="width:150px;height:40px;position:relative;top:10px;left:200px;"></a>
+{% if session.id %}
+<table style="position:relative;top:-15px;left:1200px;">
+    <tr><td>{{session.id}}님&nbsp</td><td><a href="/member/logout">로그아웃</a></td></tr>
+</table>
+{% else%}
+<table style="position:relative;top:-15px;left:1200px;">
+    <tr><td><a href="/member/">로그인</a></td></tr>
+</table>
+{% endif %}
+<table style="position:relative;top:50px;left:150px;font-size:30px;" >
+    <tr><td>{{bd.title}}</td></tr>
+</table>
+<table style="position:relative;top:60px;left:150px;font-size:15px;" >
+    <tr><td style="width:50px;">작성자</td><td style="width:50px;">{{bd.writer}}</td><td style="width:50px;">작성일</td><td>{{bd.w_date}}</td></tr>
+</table>
+<hr style="border:1px color= silver;position:relative;top:60px;" width="80%">
+
+</body>
+</html>

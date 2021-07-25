@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../../static/css/web.css">
+    <link rel="stylesheet" href="../../static/css/area_list.css">
 </head>
 <body>
 <br/><br/><br/><br/>
-<h3>지역별 관광지 검색</h3>
+<h3>지역별 관광지</h3>
     <div class="box_leftType1">
         <ul class="list_thumType flnon">
             {% for area in areaList %}
@@ -15,12 +15,12 @@
                 <div class="photo">
                     <a href="javascript:" onclick="goDetail();">
                         <img src="{{area.firstimage}}" alt="{{area.title}}">
-                        <input type="hidden" value="{{area.contentid}}">
+                        <input type="hidden" name="contentid" value="{{area.contentid}}">
                     </a>
                 </div>
                 <div class="area_txt">
                     <div class="tit">
-                        <a href="javascript:" onclick="goDetail();">{{area.title}}</a>
+                        <a href="/location/list-detail?contentid={{area.contentid}}">{{area.title}}</a>
                     </div>
                     <p>{{area.addr1}}</p>
                 </div>

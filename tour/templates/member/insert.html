@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>플레이데이터:회원가입</title>
+    <script>
+        function check(str, id){
+            var span_tag = document.getElementById(id);
+            if(document.getElementById(str).value == ""){
+                span_tag.innerHTML = "필수 정보입니다.";
+                return;
+            }
+            else if(document.getElementById(str).value != "") {
+                if(str == "id"){
+                    if(3 > document.getElementById(str).value.length || 20 < document.getElementById(str).value.length ||
+                    document.getElementById(str).value.indexOf(" ") != -1){
+                        span_tag.innerHTML = "3~20자의 영문, 숫자와 특수기호만 사용 가능합니다.";
+                        return;
+                    }
+                    var ids = {{mem|tojson}};
+                    for(i = 0; i < ids.length; ++i){
+                        if(ids[i] == document.getElementById(str).value){
+                            span_tag.innerHTML = "이미 사용중인 아이디입니다.";
+                            return;
+                        }
+                    }
+                }
+                if(str == "pwd" && document.getElementById("pwd").value.length < 4){
+                    span_tag.innerHTML = "4자 이상의 영문, 숫자와 특수기호만 사용 가능합니다.";
+                    return;
+                }
+                if(str == "repwd" && document.getElementById("pwd").value != document.getElementById("repwd").value){
+                    span_tag.innerHTML = "비밀번호가 일치하지 않습니다.";
+                    return;
+                }
+                span_tag.innerHTML = "";
+                return;
+            }
+        }
+
+        function insert(){
+            var check1 = ["id", "pwd", "repwd", "name"];
+            var check2 = ["sp1", "sp2", "sp3", "sp4"];
+            for(i = 0; i < 4; ++i){
+                if(document.getElementById(check1[i]).value == "" || document.getElementById(check2[i]).innerHTML != ""){
+                    alert("입력사항을 다시 확인해주세요.");
+                    return;
+                }
+            }
+
+            var form = document.createElement('form');
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', '/member/insert');
+
+            for(i = 0; i < 4; ++i){
+                var hiddenfield = document.createElement('input');
+                hiddenfield.setAttribute('name', check1[i]);
+                hiddenfield.setAttribute('value', document.getElementById(check1[i]).value);
+                form.appendChild(hiddenfield);
+            }
+            document.body.appendChild(form);
+            alert("회원가입이 완료되었습니다.");
+            form.submit();
+        }
+    </script>
+</head>
+<body>
+<center><a href="/"><img src="../../static/img/playdata_logo.png" style="width:200px;height:60px;position:relative;top:50px;"></a></center>
+<p style="position:relative;top:50px;left:555px;">아이디</p>
+<center><input type="text" style="width:390px;height:50px;position:relative;top:40px; padding-left: 10px;"
+               onblur="check('id', 'sp1')" name="id" id="id"></center>
+<span id="sp1" style="position:relative;top:40px;left:555px;color:red;"></span>
+<p style="position:relative;top:40px;left:555px;">비밀번호</p>
+<center><input type="password" style="width:390px;height:50px;position:relative;top:30px; padding-left: 10px;"
+               name="pwd" id="pwd" onblur="check('pwd', 'sp2')"></center>
+<span id="sp2" style="position:relative;top:30px;left:555px;color:red;"></span>
+<p style="position:relative;top:30px;left:555px;">비밀번호 재확인</p>
+<center><input type="password" style="width:390px;height:50px;position:relative;top:20px; padding-left: 10px;"
+               name="repwd" id="repwd" onblur="check('repwd', 'sp3')"></center>
+<span id="sp3" style="position:relative;top:20px;left:555px;color:red;"></span>
+<p style="position:relative;top:20px;left:555px;">이름</p>
+<center><input type="text" style="width:390px;height:50px;position:relative;top:10px; padding-left: 10px;"
+               name="name" id="name" onblur="check('name', 'sp4')"></center>
+<span id="sp4" style="position:relative;top:10px;left:555px;color:red;"></span>
+<center><input type="button" style="width:410px;height:60px;position:relative;top:50px;" value="가입하기" onclick="insert()"></center>
+</body>
+</html>
