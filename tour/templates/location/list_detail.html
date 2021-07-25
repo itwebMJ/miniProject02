@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>상세페이지</title>
+    <link rel="stylesheet" href="../../static/css/area_list.css">
+</head>
+<body>
+<div class="">
+    {% for vo in detailVo %}
+    <ul class="list_detail">
+
+        <li>
+            <div class="area_txt">
+                <div class="tit">{{vo.title}}</div>
+            </div>
+        </li>
+        <li>
+            <div class="photo">
+                <img src="{{vo.firstimage}}"/>
+            </div>
+        </li>
+        <li>
+            <div class="area_addr">
+                {{vo.addr1}}
+            </div>
+
+        <li id="detail_target"></li>
+        <script>
+        document.getElementById('detail_target').innerHTML ="{{vo.homepage}}";
+        console.log('{{vo.homepage}}');
+        </script>
+        <li>{{vo.overview}}</li>
+    </ul>
+    {% endfor %}
+</div>
+</body>
+</html>
