@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PLAYDATA</title>
+</head>
+<body>
+<table style="position:relative;top:10px;left:200px;">
+    <tr><td>ⓘ</td><td>고객님의 안전이 최우선!</td></tr>
+    <tr><td></td><td>코로나19에 대한 여행안내</td></tr>
+</table>
+<hr style="border:1px color= silver;" width="90%">
+<a href="/"><img src="../static/img/playdata_logo.png" style="width:150px;height:40px;position:relative;top:10px;left:200px;"></a>
+{% if session.id %}
+<table style="position:relative;top:-15px;left:1200px;">
+    <tr><td>{{session.id}}님&nbsp</td><td><a href="/member/logout">로그아웃</a></td></tr>
+</table>
+{% else%}
+<table style="position:relative;top:-15px;left:1200px;">
+    <tr><td><a href="/member/">로그인</a></td></tr>
+</table>
+{% endif %}
+<img src="../static/img/background.png" style="width:100%;height:450px;position:relative;top:-10px;">
+<center><table style="position:relative;top:-450px;
+border-top-right-radius:10px;border-top-left-radius:10px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;
+padding-left:10px;padding-right:10px;padding-top:10px;padding-bottom:10px;">
+    <tr>
+        <td colspan="3" style="font-size:30px;">어디로 떠나고 싶으세요?</td>
+    </tr>
+    <tr>
+        <td><input type="button" value="코로나 지역별 현황" onclick="location.href='/coronainfo/'"
+                   style="width:400px;height:70px;background-color:Transparent;border:1px solid skyblue;font-size:20px;cursor:pointer;
+                    border-top-right-radius:10px;border-top-left-radius:10px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></td>
+        <td><input type="button" value="지역별 관광지 검색" onclick="location.href='/location/area-code'"
+                   style="width:400px;height:70px;background-color:Transparent;border:1px solid skyblue;font-size:20px;cursor:pointer;
+                    border-top-right-radius:10px;border-top-left-radius:10px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></td>
+        <td><input type="button" value="추천 관광지" onclick="#"
+                   style="width:400px;height:70px;background-color:Transparent;border:1px solid skyblue;font-size:20px;cursor:pointer;
+                   border-top-right-radius:10px;border-top-left-radius:10px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></td>
+    </tr>
+</table></center>
+<table style="position:relative;top:-130px;left:150px;font-size:25px;" >
+    <tr><td>빅데이터로 알려주는 안전한 여행지 정보</td></tr>
+</table>
+<table style="position:relative;top:-100px;left:150px;font-size:15px;">
+    <tr>
+        <td rowspan="4"><img src="../static/img/tour1.png" style="width:200px;height:200px;margin-right:30px;"></td>
+        <td>덕수궁</td>
+        <td rowspan="4"><img src="../static/img/tour2.png" style="width:200px;height:200px;margin-left:60px;margin-right:30px;"></td>
+        <td>대변마을</td>
+        <td rowspan="4"><img src="../static/img/tour3.png" style="width:200px;height:200px;margin-left:60px;margin-right:30px;"></td>
+        <td>소매물도</td>
+    </tr>
+    <tr>
+        <td>서울특별시 중구</td><td>부산 기장군</td><td>경상남도 통영시</td>
+    </tr>
+    <tr>
+        <td>코로나&nbsp2단계</td><td>코로나&nbsp1단계</td><td>코로나&nbsp1단계</td>
+    </tr>
+    <tr>
+        <td>확진자&nbsp100명</td><td>확진자&nbsp10명</td><td>확진자&nbsp15명</td>
+    </tr>
+</table>
+<table style="position:relative;top:-50px;left:150px;" >
+    <tr><td style="font-size:25px;width:180px;">여행 게시판</td><td style="width:50px;"></td><td></td>
+        <td><a href="/board/"><img src="../static/img/add.png" style="width:20px;height:20px;"></a></td></tr>
+    <tr style="height:10px"></tr>
+    {% if bd != [] %}
+        {% if bd|length <=3 %}
+            {% for i in range(0, bd|length) %}
+            <tr style="font-size:20px;color:orange"><td>{{bd[i].loc}}</td><td>ㅣ</td><td style="color:black;width:450px;"><a href="/board/detail?num={{bd[i].num}}">{{bd[i].title}}</a></td></tr>
+            {% endfor %}
+        {% else %}
+            {% for i in range(0, 3) %}
+            <tr style="font-size:20px;color:orange"><td>{{bd[i].loc}}</td><td>ㅣ</td><td style="color:black;width:450px;"><a href="/board/detail?num={{bd[i].num}}">{{bd[i].title}}</a></td></tr>
+            {% endfor %}
+        {% endif %}
+    {% else %}
+    <tr style="font-size:20px;color:orange"><td colspan="2">게시글이 없습니다.</td></tr>
+    {% endif %}
+
+</table>
+
+</body>
+</html>
+

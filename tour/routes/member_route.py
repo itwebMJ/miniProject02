@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, session
-import travel.models.member as m
+import tour.models.member as m
 
 bp = Blueprint("member", __name__, url_prefix = "/member")
 member_service = m.cMember_service()
