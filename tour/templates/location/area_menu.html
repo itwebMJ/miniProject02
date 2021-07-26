@@ -1,22 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <!-- css 연결 -->
-    <link rel="stylesheet" href="../../static/css/area_menu.css">
-    <!-- w3 css 연결-->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-</head>
-<body>
-<br/><br/>
+{% include 'header.html' %}
 <center>
-<form action="/location/search" method="post">
-  <input type="text" name="keyword"><br/>
-  <input type="submit" value="검색" class="">
-</form>
-
 <h3>지역별 관광지 검색</h3>
 <nac class="area_menu">
     <ul>
@@ -26,11 +9,6 @@
     </ul>
 </nac>
 
-<!--
-<div class="w3-bar w3-black">
-<a href="/location/list?areaCode=" class="w3-bar-item w3-button"></a>
-</div>
--->
 <br/><br/>
 <div class="area_show_images">
 
@@ -47,5 +25,4 @@
 
 
 </center>
-</body>
-</html>
+{% include 'footer.html' %}

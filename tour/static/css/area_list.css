@@ -46,6 +46,9 @@ a:link, a:visited, a:hover, a:focus, a:active{
     text-decoration: none;
 }
 /* area_list.html */
+.detail{
+    width: 900px;
+}
 .list_detail{
     padding-left:140px;
     padding-top:40px;
@@ -70,10 +73,14 @@ a:link, a:visited, a:hover, a:focus, a:active{
     color: #000;
     text-overflow: ellipsis;
     white-space: nowrap;
+    padding-top:15px;
 }
 .list_detail > li .photo img{
     /*float:left;*/
     width: 550px;
     height:auto;
+}
+.list_detail > li #detail_overview{
+    padding-top:10px;
 }
 </style>

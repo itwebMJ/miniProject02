@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PLAYDATA</title>
+    <link rel="stylesheet" href="../../static/css/area_list.css">
+    <link rel="stylesheet" href="../../static/css/area_menu.css">
+    <!-- w3 css 연결-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<table style="position:relative;top:10px;left:200px;">
+    <tr><td>ⓘ</td><td>고객님의 안전이 최우선!</td></tr>
+    <tr><td></td><td>코로나19에 대한 여행안내</td></tr>
+</table>
+<hr style="border:1px color= silver;" width="90%">
+<a href="/"><img src="../static/img/playdata_logo.png" style="width:150px;height:40px;position:relative;top:10px;left:200px;"></a>
+<form action="/location/search" method="post">
+  <input type="text" name="keyword">
+    <input type="submit" value="" class="search_button">
+</form>
+{% if session.id %}
+<table style="position:relative;top:-15px;left:1200px;">
+    <tr><td>{{session.id}}님&nbsp</td><td><a href="/member/logout">로그아웃</a></td></tr>
+</table>
+{% else%}
+<table style="position:relative;top:-15px;left:1200px;">
+    <tr><td><a href="/member/">로그인</a></td></tr>
+</table>
+{% endif %}
+<img src="../static/img/background.png" style="width:100%;height:450px;position:relative;top:-10px;">
+<center><table style="position:relative;top:-450px;
+border-top-right-radius:10px;border-top-left-radius:10px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;
+padding-left:10px;padding-right:10px;padding-top:10px;padding-bottom:10px;">
+    <tr>
+        <td colspan="3" style="font-size:30px;">어디로 떠나고 싶으세요?</td>
+    </tr>
+    <tr>
+        <td><input type="button" value="코로나 지역별 현황" onclick="location.href='/coronainfo/'"
+                   style="width:400px;height:70px;background-color:Transparent;border:1px solid skyblue;font-size:20px;cursor:pointer;
+                    border-top-right-radius:10px;border-top-left-radius:10px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></td>
+        <td><input type="button" value="지역별 관광지 검색" onclick="location.href='/location/area-code'"
+                   style="width:400px;height:70px;background-color:Transparent;border:1px solid skyblue;font-size:20px;cursor:pointer;
+                    border-top-right-radius:10px;border-top-left-radius:10px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></td>
+        <td><input type="button" value="추천 관광지" onclick="#"
+                   style="width:400px;height:70px;background-color:Transparent;border:1px solid skyblue;font-size:20px;cursor:pointer;
+                   border-top-right-radius:10px;border-top-left-radius:10px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></td>
+    </tr>
+</table></center>

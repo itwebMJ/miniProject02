@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>상세페이지</title>
-    <link rel="stylesheet" href="../../static/css/area_list.css">
-</head>
-<body>
+{% include 'header.html' %}
 <div class="detail">
     {% for vo in detailVo %}
     <ul class="list_detail">
@@ -53,5 +46,4 @@
     </ul>
     {% endfor %}
 </div>
-</body>
-</html>
+{% include 'footer.html' %}
