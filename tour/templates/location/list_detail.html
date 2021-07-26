@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../../static/css/area_list.css">
 </head>
 <body>
-<div class="">
+<div class="detail">
     {% for vo in detailVo %}
     <ul class="list_detail">
 
@@ -25,12 +25,31 @@
                 {{vo.addr1}}
             </div>
 
-        <li id="detail_target"></li>
+        <li>
+            <div id="detail_homepage" class="area_addr">{{vo.homepage}}</div>
+        </li>
+        <li><div id="detail_overview" class="">{{vo.overview}}</div></li>
         <script>
-        document.getElementById('detail_target').innerHTML ="{{vo.homepage}}";
-        console.log('{{vo.homepage}}');
+            var homepage = "{{vo.homepage}}";
+            var overview = "{{vo.overview}}";
+            //console.log(homepage);
+            //a태그 변환
+            var escapedHtml1 = homepage.replace(/&amp;/,'&')
+                                    .replace(/&gt;/,'>')
+                                    .replace(/&lt;/,'<')
+                                    .replace(/&#34;/g, '"')
+                                    .replace(/&quot;/, '"')
+                                    .replace(/&apos;/, "'");
+            //br 태그 변환
+            var escapedHtml2 = overview.replace(/&lt;br&gt;/,'\n');
+            //남아있는 a태그 변환
+            var page = escapedHtml1.replace(/&lt;/,'<').replace(/&gt;/,'>');
+
+            document.getElementById('detail_homepage').innerHTML = page;
+            document.getElementById('detail_overview').innerHTML = escapedHtml2;
+
         </script>
-        <li>{{vo.overview}}</li>
+
     </ul>
     {% endfor %}
 </div>

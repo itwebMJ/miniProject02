@@ -1,4 +1,5 @@
-import pymysql, requests
+import urllib, requests
+from urllib.parse import quote_plus     #url 한글 인코딩위해 필요
 from bs4 import BeautifulSoup
 
 class Location:     #location 테이블
@@ -181,6 +182,7 @@ class AreaService:
         vo_list = []
         if code =='0000':
             items = root.select('item')
+            print('리스트 개수 : ', len(items))
             try:
                 for item in items:
                     addr1 = item.find('addr1').get_text()
@@ -255,13 +257,13 @@ class AreaService:
                 return vo_list
 
     def searchKeyword(self, keyword):      #키워드로 검색
-        keyword = keyword.encode("UTF-8")
         print(keyword)
-        url = self.url%('searchKeyword', self.apiKey, 'keyword', keyword)
+        url_encoded = quote_plus(keyword, safe='/')     #한글 인코딩
+        url = self.url%('searchKeyword', self.apiKey, 'keyword', url_encoded)
+
         html = requests.get(url).text
         root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
         code = root.find('resultCode').get_text()
-        print(url)
         vo_list = []
         if code == '0000':
             items = root.select('item')

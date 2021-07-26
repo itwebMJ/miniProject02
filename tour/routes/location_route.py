@@ -35,4 +35,4 @@ def list_detail():
 def search():
     keyword = request.form['keyword']
     searchList = areaService.searchKeyword(keyword)
-    return render_template('location/search.html', searchList=searchList)
+    return render_template('location/area_list.html', areaList=searchList)
