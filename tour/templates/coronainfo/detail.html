@@ -5,16 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-<h3>코로나 현황</h3>
-<table border="1">
+<center><h3>{{c.gubun}} 지역 코로나 상세 현황</h3></center>
+<table border="1" style="margin: auto; text-align: center;">
   <tr><th>기준일</th><td>{{c.stdDay}}</td></tr>
-  <tr><th>총 사망자 수</th><td>{{c.deathCnt}}</td></tr>
-  <tr><th>총 확진자 수</th><td>{{c.defcnt}}</td></tr>
-  <tr><th>전일대비 증감자 수</th><td>{{c.incDec}}</td></tr>
-  <tr><th>격리 해제 수</th><td>{{c.isolClearCnt}}</td></tr>
-  <tr><th>격리중 환자 수</th><td>{{c.isolIngCnt}}</td></tr>
+  <tr><th>전일 대비 확진자 수</th><td>{{c.incDec}}</td></tr>
   <tr><th>지역 발생 수</th><td>{{c.localOccCnt}}</td></tr>
   <tr><th>해외 유입 수</th><td>{{c.overFlowCnt}}</td></tr>
+  <tr><th>총 확진자 수</th><td>{{c.defCnt}}</td></tr>
+  <tr><th>총 사망자 수</th><td>{{c.deathCnt}}</td></tr>
+  <tr><th>격리중 환자 수</th><td>{{c.isolIngCnt}}</td></tr>
+  <tr><th>격리 해제 수</th><td>{{c.isolClearCnt}}</td></tr>
 </table><br/>
 </body>
 </html>

@@ -28,7 +28,6 @@
         }
         }
 
-
       function edit(url, val){
         var form = document.createElement('form');
         form.setAttribute('method', 'post');
@@ -49,23 +48,26 @@
         form.submit();
       }
 
-      function insert(){
+      function insert(val){
         var form = document.createElement('form');
         form.setAttribute('method', 'post');
-        form.setAttribute('action', '/board/reboard');
+        form.setAttribute('action', '/board/editreboard');
 
-        var check = ["num", "content"];
+        var check = ["num", "content", "pk"];
         if(document.getElementById(check[1]).value == ""){
             alert("입력사항을 확인해주세요.");
             return;
         }
         var str = document.getElementById("content").value;
         str = str.replace(/(?:\r\n|\r|\n)/g, '<br>');
-        for(i = 0; i < 2; ++i){
+        for(i = 0; i < 3; ++i){
             var hiddenfield = document.createElement('input');
             hiddenfield.setAttribute('name', check[i]);
             if(i == 1){
                 hiddenfield.setAttribute('value', str);
+            }
+            else if(i == 2){
+                hiddenfield.setAttribute("value", val);
             }
             else{
                 hiddenfield.setAttribute("value", {{bd.num}});
@@ -74,10 +76,9 @@
             form.appendChild(hiddenfield);
         }
         document.body.appendChild(form);
-        alert("댓글이 등록되었습니다.");
+        alert("댓글이 수정되었습니다.");
         form.submit();
       }
-
     </script>
 </head>
 <body>
@@ -87,15 +88,9 @@
 </table>
 <hr style="border:1px color= silver;" width="90%">
 <a href="/"><img src="../static/img/playdata_logo.png" style="width:150px;height:40px;position:relative;top:10px;left:200px;"></a>
-{% if session.id %}
 <table style="position:relative;top:-15px;left:1200px;">
     <tr><td>{{session.id}}님&nbsp</td><td><a href="/member/logout">로그아웃</a></td></tr>
 </table>
-{% else%}
-<table style="position:relative;top:-15px;left:1200px;">
-    <tr><td><a href="/member/">로그인</a></td></tr>
-</table>
-{% endif %}
 <table style="position:relative;top:50px;left:150px;font-size:30px;" >
     <tr><td>{{bd.title}}</td></tr>
 </table>
@@ -116,31 +111,33 @@
 <table style="position:relative;top:100px;left:150px;font-size:20px;" >
     <tr><td>댓글</td></tr>
 </table>
-{% if rebd %}
 {% for i in rebd %}
 <table style="position:relative;top:100px;left:150px;font-size:15px;">
-    <tr><td>{{i.writer}}</td>
-    {% if i.writer == session.name %}
+    <tr>
+        {% if i.pk != pk %}
+        <td>{{i.writer}}</td>
+        {% endif %}
+    {% if i.writer == session.name and i.pk != pk %}
         <td style="width:20px;"><input type="button" value="수정" style="background-color:Transparent;border:0px;cursor:pointer;" onclick="edit('/board/reedit', {{i.pk}})"></td>
         <td style="width:20px;"><input type="button" value="삭제" style="background-color:Transparent;border:0px;cursor:pointer;" onclick="del('/board/redelete', {{i.pk}})"></td>
     {% endif %}
     </tr>
+    {% if i.pk == pk %}
+    <tr><td style="width:40px;"></td><td style="font-size:20px;">&nbsp&nbsp{{session.name}}
+        <input type="button" value="수정" style="background-color:Transparent;border:0px;cursor:pointer;" onclick="insert({{pk}})">
+    </td></tr>
+    <tr><td></td><td><textarea rows="15" cols="5" wrap="hard"
+    style="width:1150px;height:80px;padding-left:10px;padding-top:20px;resize:none;font-size:15px;"
+    id="content" name="content" placeholder="댓글을 입력하세요.">{{i.content}}</textarea></td></tr>
+    {% else %}
     <tr><td><pre>{{i.content}}</pre></td></tr>
     <tr><td>{{i.w_date}}</td></tr>
     <tr><td style="height:10px;"></td></tr>
+    {% endif %}
 </table>
+{% if i.pk != pk %}
 <hr style="border:1px color= silver;position:relative;top:80px;left:-400px;" width="400px">
+{% endif %}
 {% endfor %}
-{% endif %}
-{% if session.id %}
-<table style="position:relative;top:130px;left:150px;font-size:15px;">
-    <tr><td style="width:40px;"></td><td style="font-size:20px;">&nbsp&nbsp{{session.name}}
-        <input type="button" value="등록" style="background-color:Transparent;border:0px;cursor:pointer;" onclick="insert()">
-    </td></tr>
-    <tr><td></td><td><textarea rows="15" cols="5" wrap="hard"
-style="width:1150px;height:80px;padding-left:10px;padding-top:20px;resize:none;font-size:15px;"
-id="content" name="content" placeholder="댓글을 입력하세요."></textarea></td></tr>
-</table>
-{% endif %}
 </body>
 </html>

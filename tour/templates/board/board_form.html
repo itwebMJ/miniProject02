@@ -9,7 +9,7 @@
                 location.href = "/board/insert";
             }else{
                 alert('로그인을 해주세요');
-                return
+                location.href = "/member/";
             }
         }
 
@@ -55,7 +55,7 @@
 </table>
 {% endif %}
 <table style="position:relative;top:50px;left:150px;font-size:30px;" >
-    <tr><td>후기 게시판</td></tr>
+    <tr><td>게시판</td></tr>
 </table>
 <input type="button" value="글쓰기" style="position:relative;top:60px;left:1270px;width:80px;height:30px;" onclick="insert()">
 <hr style="border:1px color= silver;position:relative;top:60px;" width="80%">
@@ -71,7 +71,7 @@
     <tr>
         <th style="width:50px;height:25px;border-right:1px white;border-left:ipx white;">{{bd[i].num}}</th>
         <th style="width:50px;height:25px;border-right:1px white;border-left:ipx white;">
-            <a href="/board/detail?num={{i.num}}">{{bd[i].title}}</a></th>
+            <a href="/board/detail?num={{bd[i].num}}">{{bd[i].title}}</a></th>
         <th style="width:50px;height:25px;border-right:1px white;border-left:ipx white;">{{bd[i].writer}}</th>
         <th style="width:50px;height:25px;border-right:1px white;border-left:ipx white;">{{bd[i].w_date}}</th>
     </tr>

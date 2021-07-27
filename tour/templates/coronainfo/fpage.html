@@ -5,14 +5,18 @@
     <title>Title</title>
 </head>
 <body>
-<form action="/coronainfo/coronaGraph" method="post">
-<section id="home" style="padding:300px 0;background-image: url(https://unsplash.it/1324/683?random=0); background-position: center; background-repeat: no-repeat;background-size: cover;background-attachment:fixed;">
-	<div class="container">
-<h1 style="text-align:center;" class="toptitle">코로나 현황</h1><br/>
-<table style="border: 2px solid powderblue; width:60%; height: 400px; margin: auto; text-align: center;">
-	<tr><td><img src = "{{img_path}}" style="width:250px;height:250x"/></td></tr>
-</table>
-</section>
+<form action="/coronainfo/" method="post">
+    <h1 style="text-align:center; color:darkblue;" class="toptitle">코로나 현황</h1><br/>
+    <table style="border: 3px solid powderblue; background-color: powderblue;  width:80%; height: 520px; margin: auto; text-align: center;">
+	    <tr><td><img src = "{{img_path}}" style="background-size: cover; width:1500px;height:500x"/></td></tr>
+    </table>
+    <table style="border: 3px solid Lightgrey; background-color: Lightgrey;  width:80%; height: 50px; margin: auto; text-align: center;">
+        <tr>
+        {% for c in list_loc %}
+        <th><a href="/coronainfo/corouteGubun-all?city={{c}}">{{c}}</a></th>
+        {% endfor %}
+            </tr>
+    </table>
 </form>
 </body>
 </html>
