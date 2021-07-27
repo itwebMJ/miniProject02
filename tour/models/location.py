@@ -110,75 +110,14 @@ class AreaService:
             finally:
                 return vo_list
 
-    def categoryCode_cart1(self):       # 대분류
-        url = 'http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/categoryCode?ServiceKey=4tdDtEO6U6Iu3LUIgh5CaYYiZfUj9XrwBjOpicIiJxWHmGWOQbO8Pr9q8R8kNeptActfQZHmfho%2BT2Euxcn2zQ%3D%3D&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest'
-        html = requests.get(url).text
-        root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
-        code = root.find('resultCode').get_text()
-        msg = root.find('resultMsg').get_text()
-        print('처리결과:', msg)
-        '''
-        <item>
-        <code>A01</code>
-        <name>자연</name>
-        <rnum>1</rnum>
-        </item>
-        <item>
-        <code>A02</code>
-        <name>인문(문화/예술/역사)</name>
-        <rnum>2</rnum>
-        </item>
-        <item>
-        <code>C01</code>
-        <name>추천코스</name>
-        <rnum>7</rnum>
-        </item>
-        '''
-        vo_list = []
-        if code == '0000':
-            items = root.select('item')
-            try:
-                for item in items:
-                    code = item.find('code').get_text()
-                    name = item.find('name').get_text()
-                    rnum = item.find('rnum').get_text()
-                    vo_list.append(AreaCodeVo(code=code, name=name, rnum=rnum))
-            except Exception as e:
-                print(e)
-            finally:
-                return vo_list
-
-    def categoryCode_cart2(self, contentTypeId):       # 중분류
-        url = self.url % ('categoryCode', self.apiKey, 'contentTypeId', contentTypeId)  # 한 페이지에 출력할 데이터 개수
-        html = requests.get(url).text
-        root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
-        code = root.find('resultCode').get_text()
-        msg = root.find('resultMsg').get_text()
-        print('처리결과:', msg)
-
-        vo_list = []
-        if code == '0000':
-            items = root.select('item')
-            try:
-                for item in items:
-                    code = item.find('code').get_text()
-                    name = item.find('name').get_text()
-                    rnum = item.find('rnum').get_text()
-                    vo_list.append(AreaCodeVo(code=code, name=name, rnum=rnum))
-            except Exception as e:
-                print(e)
-            finally:
-                return vo_list
-
     def areaBasedList(self, areaCode, numOfRows, pageNo):       #지역코드로 검색하는 리스트
         url = self.page_url%('areaBasedList', self.apiKey, 'areaCode', areaCode,
                                     'numOfRows', str(numOfRows)+'&pageNo='+str(pageNo))
         html = requests.get(url).text
         root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
         code = root.find('resultCode').get_text()
-        msg = root.find('resultMsg').get_text()
-        print('처리결과:', msg)
-
+        print('처리결과:', url)
+        #totalCount = root.find('totalCount').get_text()
         vo_list = []
         if code =='0000':
             items = root.select('item')
@@ -189,12 +128,16 @@ class AreaService:
                     areacode = item.find('areacode').get_text()
                     contentid = item.find('contentid').get_text()
                     title = item.find('title').get_text()
-                    firstimage = item.find('firstimage').get_text()
+                    if item.find('firstimage') is not None:
+                        firstimage = item.find('firstimage').get_text()
+                    else:
+                        firstimage ='../../static/img/no_img.png'
+                    '''
                     firstimage2 = item.find('firstimage2').get_text()
                     sigungucode = item.find('sigungucode').get_text()
+                    '''
                     vo_list.append(AreaBasedVo(areacode=areacode, addr1=addr1, contentid=contentid, title=title,
-                                               firstimage=firstimage, firstimage2=firstimage2,
-                                               sigungucode=sigungucode))
+                                               firstimage=firstimage))
             except Exception as e:
                 print(e)
             finally:
@@ -217,16 +160,19 @@ class AreaService:
                 for item in items:
                     addr1 = item.find('addr1').get_text()
                     contentid = item.find('contentid').get_text()
-                    contenttypeid = item.find('contenttypeid').get_text()
-                    firstimage = item.find('firstimage').get_text()
+                    if item.find('firstimage') is not None:
+                        firstimage = item.find('firstimage').get_text()
+                    else:
+                        firstimage ='../../static/img/no_img.png'
                     homepage = item.find('homepage').get_text()
+                    '''
+                    contenttypeid = item.find('contenttypeid').get_text()
                     createdtime = item.find('createdtime').get_text()
+                    '''
                     title = item.find('title').get_text()
                     overview = item.find('overview').get_text()
-                    print(addr1+contentid+homepage+title+overview )
                     vo_list.append(DetailCommon(addr1=addr1, contentid=contentid, title=title,
-                                    firstimage=firstimage, overview=overview, contenttypeid=contenttypeid,
-                                    homepage=homepage, createdtime=createdtime))
+                                    firstimage=firstimage, overview=overview, homepage=homepage))
             except Exception as e:
                 print(e)
             finally:
@@ -246,11 +192,12 @@ class AreaService:
                 for item in items:
                     contentid = item.find('contentid').get_text()
                     originimgurl = item.find('originimgurl').get_text()
+                    '''
                     serialnum = item.find('serialnum').get_text()
                     smallimageurl = item.find('smallimageurl').get_text()
+                    '''
 
-                    vo_list.append(detailImageVo(contentid=contentid, originimgurl=originimgurl,
-                                              serialnum=serialnum, smallimageurl=smallimageurl))
+                    vo_list.append(detailImageVo(contentid=contentid, originimgurl=originimgurl))
             except Exception as e:
                 print(e)
             finally:
@@ -273,14 +220,18 @@ class AreaService:
                     areacode = item.find('areacode').get_text()
                     contentid = item.find('contentid').get_text()
                     title = item.find('title').get_text()
-                    firstimage = item.find('firstimage').get_text()
+                    if item.find('firstimage') is not None:
+                        firstimage = item.find('firstimage').get_text()
+                    else:
+                        firstimage ='../../static/img/no_img.png'
+                    '''
                     firstimage2 = item.find('firstimage2').get_text()
                     mapx = item.find('mapx').get_text()
                     mapy = item.find('mapy').get_text()
                     sigungucode = item.find('sigungucode').get_text()
+                    '''
                     vo_list.append(AreaBasedVo(areacode=areacode, addr1=addr1, contentid=contentid, title=title,
-                                               firstimage=firstimage, firstimage2=firstimage2,
-                                               sigungucode=sigungucode))
+                                               firstimage=firstimage))
             except Exception as e:
                 print(e)
             finally:

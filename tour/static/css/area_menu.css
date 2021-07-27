@@ -1,6 +1,26 @@
 <style>
+/* header.html */
+/*.search_form{
+    position:relative;
+    left:900px;
+    top:85px;
+}*//*style="position:absolute;top:85px;padding-left:900px;"*/
+
+.search_input{
+    width:150px;
+    padding-bottom:30px;
+}
+.search_button{
+    background:url('../../static/img/search_icon.png') no-repeat;
+    cursor:pointer;
+    border:none;
+    background-size:90%;
+    width:40px;
+    height:40px;
+    top:10px;
+}
 /* area_code.html 의 지역 메뉴부분 */
-body, ul, li{
+ul, li{
     display:block;
     list-style:none;
     padding:0px;
@@ -40,4 +60,4 @@ a{
     width:320px;
     height:213px;
 }
-</style
+</style>

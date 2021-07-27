@@ -65,7 +65,6 @@ a:link, a:visited, a:hover, a:focus, a:active{
     white-space: nowrap;
 }
 .list_detail > li .area_addr{
-    overflow: hidden;
     display: inline-block;
     width: 100%;
     font-weight: bold;
