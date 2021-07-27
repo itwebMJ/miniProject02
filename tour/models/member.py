@@ -49,6 +49,23 @@ class cMember_dao :
         if row :
             return cMember(row[0], row[1], row[2], row[3])
 
+    def Update(self, interest, id) :
+        self.Connect()
+        sql = "update member set interest = %s where email = %s"
+        vals = (interest, id)
+        self.cur.execute(sql, vals)
+        self.conn.commit()
+        self.Disconnect()
+
+    def Count(self) :
+        self.Connect()
+        sql = "select interest, count(*) from member group by interest"
+        self.cur.execute(sql)
+        lst = []
+        for row in self.cur :
+            lst.append((row[0], row[1]))
+        self.Disconnect()
+        return lst
 
 
 class cMember_service :
@@ -64,8 +81,11 @@ class cMember_service :
     def Get_member(self, email) :
         return self.dao.Select(email)
 
+    def Edit_member(self, interest, email) :
+        return self.dao.Update(interest, email)
 
-
+    def Count_member(self) :
+        return self.dao.Count()
 
 
 

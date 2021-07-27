@@ -16,6 +16,9 @@
         <li>
             <div class="area_addr">
                 {{vo.addr1}}
+                {% if session.id %}
+                &nbsp&nbsp&nbsp<input type="button" value="♥여행찜하기" style="background-color:Transparent;border:0px;cursor:pointer;color:red;" onclick="interest();">
+                {% endif %}
             </div>
 
         <li>
@@ -23,24 +26,37 @@
         </li>
         <li><div id="detail_overview" class="">{{vo.overview}}</div></li>
         <script>
-            var homepage = "{{vo.homepage}}";
-            var overview = "{{vo.overview}}";
-            //console.log(homepage);
+            var homepage = '{{vo.homepage}}';
+
+            console.log(homepage);
             //a태그 변환
-            var escapedHtml1 = homepage.replace(/&amp;/,'&')
-                                    .replace(/&gt;/,'>')
-                                    .replace(/&lt;/,'<')
+            var escapedHtml1 = homepage.replace(/&amp;/g,'&')
+                                    .replace(/&gt;/g,'>')
+                                    .replace(/&lt;/g,'<')
                                     .replace(/&#34;/g, '"')
-                                    .replace(/&quot;/, '"')
-                                    .replace(/&apos;/, "'");
-            //br 태그 변환
-            var escapedHtml2 = overview.replace(/&lt;br&gt;/,'\n');
+                                    .replace(/&quot;/g, '"')
+                                    .replace(/&apos;/g, "'");
             //남아있는 a태그 변환
             var page = escapedHtml1.replace(/&lt;/,'<').replace(/&gt;/,'>');
 
             document.getElementById('detail_homepage').innerHTML = page;
-            document.getElementById('detail_overview').innerHTML = escapedHtml2;
 
+            function interest(){
+                var check = "{{session.interest}}";
+                if(check == "None"){
+                    check = 0;
+                }
+                if(check != 0){
+                    var flag = confirm("찜 목록을 변경하시겠습니까?");
+                    if(flag){
+                        location.href = "/location/interest?loc={{vo.addr1}}&contentid={{vo.contentid}}";
+                    }
+                }
+                else{
+                    alert("여행지를 찜하셨습니다.");
+                    location.href = "/location/interest?loc={{vo.addr1}}&contentid={{vo.contentid}}";
+                }
+            }
         </script>
 
     </ul>

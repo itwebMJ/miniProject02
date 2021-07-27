@@ -1,5 +1,6 @@
 import requests, xmltodict, json
 from bs4 import BeautifulSoup
+from datetime import date
 
 class CoronaVo:
     def __init__(self, stdDay=None, deathCnt=None, incDec=None, isolClearCnt=None, isolIngCnt=None,
@@ -16,7 +17,7 @@ class CoronaVo:
         self.overFlowCnt = overFlowCnt #해외유입 수
 
     def __str__(self):
-        return self.gubun + ': ' + self.stdDay+'/'+self.incDec+'/'+self.ocalOccCnt+'/'+self.overFlowCnt\
+        return self.gubun + ': ' + self.stdDay+'/'+self.incDec+'/'+self.localOccCnt+'/'+self.overFlowCnt\
                +'/'+self.isolIngCnt+'/'+self.defCnt+'/'+self.isolIngCnt+'/'+self.deathCnt
 
 class CoronaGraph:
@@ -32,8 +33,10 @@ class CoronaService:
     def __init__(self):
         self.url = 'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey=%s&pageNo=1&numOfRows=10&startCreateDt=%s&endCreateDt=%s'
         self.apiKey = '4tdDtEO6U6Iu3LUIgh5CaYYiZfUj9XrwBjOpicIiJxWHmGWOQbO8Pr9q8R8kNeptActfQZHmfho%2BT2Euxcn2zQ%3D%3D'
-        self.sd = 20210726
-        self.ed = 20210726
+        sd = str(date.today())
+        day_str = sd.split('-')[0]+sd.split('-')[1]+sd.split('-')[2]
+        self.sd = int(day_str)
+        self.ed = int(day_str)
 
     def getCoronaAll(self):
         url = self.url%(self.apiKey, self.sd, self.ed)
@@ -77,7 +80,7 @@ class CoronaService:
             for item in items:
                 incDec = item.find('incDec').get_text()
                 gubun = item.find('gubun').get_text()
-                corona.append(CoronaGraph(incDec, gubun))
+                corona.append(CoronaGraph(incDec=incDec, gubun=gubun))
             return corona
         else:
             return msg

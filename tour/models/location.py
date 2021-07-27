@@ -2,6 +2,7 @@ import requests
 from urllib.parse import quote_plus     #url 한글 인코딩위해 필요
 from bs4 import BeautifulSoup
 
+'''
 class Location:     #location 테이블
     def __init__(self, area_code=None, area_name=None, sigungu_code=None, cat1=None, cat2=None, cat3=None, count=None):
         self.area_code = area_code
@@ -11,6 +12,7 @@ class Location:     #location 테이블
         self.cat2 = cat2
         self.cat3 = cat3
         self.count = count
+'''
 
 class AreaCodeVo:
     def __init__(self, code=None, name=None, rnum=None):
@@ -203,10 +205,11 @@ class AreaService:
             finally:
                 return vo_list
 
-    def searchKeyword(self, keyword):      #키워드로 검색
+    def searchKeyword(self, keyword, numOfRows, pageNo):      #키워드로 검색
         print(keyword)
         url_encoded = quote_plus(keyword, safe='/')     #한글 인코딩
-        url = self.url%('searchKeyword', self.apiKey, 'keyword', url_encoded)
+        url = self.page_url%('searchKeyword', self.apiKey, 'keyword', url_encoded,
+                             'numOfRows', str(numOfRows) + '&pageNo=' + str(pageNo))
 
         html = requests.get(url).text
         root = BeautifulSoup(html, 'lxml-xml')  # 파서의 종류를 xml로 지정
