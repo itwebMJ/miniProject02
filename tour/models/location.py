@@ -1,4 +1,4 @@
-import urllib, requests
+import requests
 from urllib.parse import quote_plus     #url 한글 인코딩위해 필요
 from bs4 import BeautifulSoup
 

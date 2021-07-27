@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, session
+from flask import Blueprint, render_template, request
 import tour.models.location as loc
 
 bp = Blueprint('location', __name__, url_prefix='/location')
