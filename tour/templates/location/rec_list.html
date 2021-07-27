@@ -1,0 +1,67 @@
+{% include 'header.html' %}
+<br/>
+<h3 style="padding-left:140px;">추천 관광지</h3>
+    <div class="box_leftType1" style="padding-left:140px;">
+        <ul class="list_thumType flnon">
+            {% for area in areaList1 %}
+            <li class="bdr_nor">
+                <div class="photo">
+                    <a href="javascript:" onclick="goDetail();">
+                        <img src="{{area.firstimage}}" alt="{{area.title}}">
+                        <input type="hidden" name="contentid" value="{{area.contentid}}">
+                    </a>
+                </div>
+                <div class="area_txt">
+                    <div class="tit">
+                        <a href="/location/list-detail?contentid={{area.contentid}}">{{area.title}}</a>
+                    </div>
+                    <p>{{area.addr1}}</p>
+                </div>
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="box_leftType1" style="padding-left:140px;">
+        <ul class="list_thumType flnon">
+            {% for area in areaList2 %}
+            <li class="bdr_nor">
+                <div class="photo">
+                    <a href="javascript:" onclick="goDetail();">
+                        <img src="{{area.firstimage}}" alt="{{area.title}}">
+                        <input type="hidden" name="contentid" value="{{area.contentid}}">
+                    </a>
+                </div>
+                <div class="area_txt">
+                    <div class="tit">
+                        <a href="/location/list-detail?contentid={{area.contentid}}">{{area.title}}</a>
+                    </div>
+                    <p>{{area.addr1}}</p>
+                </div>
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="box_leftType1" style="padding-left:140px;">
+        <ul class="list_thumType flnon">
+            {% for area in areaList3 %}
+            <li class="bdr_nor">
+                <div class="photo">
+                    <a href="javascript:" onclick="goDetail();">
+                        <img src="{{area.firstimage}}" alt="{{area.title}}">
+                        <input type="hidden" name="contentid" value="{{area.contentid}}">
+                    </a>
+                </div>
+                <div class="area_txt">
+                    <div class="tit">
+                        <a href="/location/list-detail?contentid={{area.contentid}}">{{area.title}}</a>
+                    </div>
+                    <p>{{area.addr1}}</p>
+                </div>
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% include 'footer.html' %}
