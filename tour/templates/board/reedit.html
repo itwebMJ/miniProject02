@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+{% include 'header.html' %}
     <script>
         function del(url, val){
         var flag = confirm("정말 삭제 하시겠습니까?")
@@ -80,8 +76,7 @@
         form.submit();
       }
     </script>
-</head>
-<body>
+
 <table style="position:relative;top:10px;left:200px;">
     <tr><td>ⓘ</td><td>고객님의 안전이 최우선!</td></tr>
     <tr><td></td><td>코로나19에 대한 여행안내</td></tr>
@@ -139,5 +134,5 @@
 <hr style="border:1px color= silver;position:relative;top:80px;left:-400px;" width="400px">
 {% endif %}
 {% endfor %}
-</body>
-</html>
+
+{% include 'footer.html' %}

@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>플레이데이터:글쓰기</title>
+{% include 'header.html' %}
     <script>
         function insert(){
             var form = document.createElement('form');
@@ -39,8 +35,7 @@
             form.submit();
         }
     </script>
-</head>
-<body>
+
 <table style="position:relative;top:10px;left:200px;">
     <tr><td>ⓘ</td><td>고객님의 안전이 최우선!</td></tr>
     <tr><td></td><td>코로나19에 대한 여행안내</td></tr>
@@ -63,5 +58,5 @@
 style="width:1200px;height:280px;position:relative;top:100px;left:150px;padding-left:10px;padding-top:30px;resize:none;font-size:15px;"
 id="content" name="content" placeholder="내용을 입력하세요."></textarea><br>
 <input type="file" name="img_path" id="img_path" style="position:relative;top:110px;left:150px;width:300px;height:30px;">
-</body>
-</html>
+
+{% include 'footer.html' %}

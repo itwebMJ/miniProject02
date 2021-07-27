@@ -8,8 +8,6 @@ areaService = loc.AreaService()
 @bp.route('/area-code')
 def area_code():
     areas = areaService.areaCode(17, 1)    #10개 데이터(numOfRows) 페이지 번호(pageNo)
-    #cart1_list = areaService.categoryCode_cart1()       # 대분류
-    #cart2_list = areaService.categoryCode_cart2(12)     # 중불류
     # 지역메뉴 밑의 이미지
     img_1 = areaService.detailImage(127291)
     img_2 = areaService.detailImage(128022)
@@ -20,7 +18,7 @@ def area_code():
 def areaList():
     areaCode = request.args.get('areaCode', 0, int)
     print(areaCode)
-    areaList = areaService.areaBasedList(areaCode, 10, 1)    #경북지역코드 35
+    areaList = areaService.areaBasedList(areaCode, 30, 1)    #경북지역코드 35
     return render_template('location/area_list.html', areaList=areaList)
 
 @bp.route('/list-detail')

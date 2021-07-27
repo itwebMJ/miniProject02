@@ -16,6 +16,7 @@ def coronaGraph():
     print(x)
     fig, ax = plt.subplots()
     plt.bar(x, y)
+    plt.bar(x, y, color='slategrey')
     plt.rcParams['figure.figsize'] = [15, 5]
     plt.xticks(rotation=0)
     plt.xlabel('코로나 발생 지역')

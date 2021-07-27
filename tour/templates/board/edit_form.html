@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+{% include 'header.html' %}
     <script>
         function update(){
             var form = document.createElement('form');
@@ -39,8 +35,6 @@
             form.submit();
         }
     </script>
-</head>
-<body>
 <table style="position:relative;top:10px;left:200px;">
     <tr><td>ⓘ</td><td>고객님의 안전이 최우선!</td></tr>
     <tr><td></td><td>코로나19에 대한 여행안내</td></tr>
@@ -62,5 +56,5 @@
 <textarea rows="15" cols="45" wrap="hard"
 style="width:1200px;height:280px;position:relative;top:100px;left:150px;padding-left:10px;padding-top:30px;resize:none;font-size:15px;"
 id="content" name="content" placeholder="내용을 입력하세요." >{{content}}</textarea><br>
-</body>
-</html>
+
+{% include 'footer.html' %}

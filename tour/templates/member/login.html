@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>플레이데이터:로그인</title>
+{% include 'header.html' %}
     <script>
         function login(){
             var check1 = ["id", "pwd"];
@@ -47,8 +43,7 @@
             form.submit();
         }
     </script>
-</head>
-<body>
+
 <center><a href="/"><img src="../../static/img/playdata_logo.png" style="width:300px;height:80px;position:relative;top:100px;"></a></center>
 <center><input type="text" style="width:390px;height:50px;position:relative;top:200px; padding-left: 10px;"
                id="id" name="id" placeholder="아이디"></center>
@@ -59,5 +54,5 @@
 <center><input type="button" style="width:410px;height:60px;position:relative;top:240px;" value="로그인" onclick="login()"></center>
 <hr style="border:1px color= silver; position:relative; top:250px;" width="27%">
 <center><a href="/member/insert" style="position:relative; top:260px;">회원가입</a></center>
-</body>
-</html>
+
+{% include 'footer.html' %}

@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+{% include 'header.html' %}
     <script>
         function del(url, val){
-        var flag = confirm("정말 삭제 하시겠습니까?")
-        if(flag){
-            var form = document.createElement('form');
-            form.setAttribute('method', 'post');
-            form.setAttribute('action', url);
-            var hiddenfield = document.createElement('input');
-            hiddenfield.setAttribute('name', 'num');
-            hiddenfield.setAttribute('value', val);
-            form.appendChild(hiddenfield);
-            if(url == '/board/redelete'){
+            var flag = confirm("정말 삭제 하시겠습니까?")
+            if(flag){
+                var form = document.createElement('form');
+                form.setAttribute('method', 'post');
+                form.setAttribute('action', url);
                 var hiddenfield = document.createElement('input');
-                hiddenfield.setAttribute('name', 'bdnum');
-                hiddenfield.setAttribute('value', {{bd.num}});
+                hiddenfield.setAttribute('name', 'num');
+                hiddenfield.setAttribute('value', val);
                 form.appendChild(hiddenfield);
+                if(url == '/board/redelete'){
+                    var hiddenfield = document.createElement('input');
+                    hiddenfield.setAttribute('name', 'bdnum');
+                    hiddenfield.setAttribute('value', {{bd.num}});
+                    form.appendChild(hiddenfield);
+                }
+                document.body.appendChild(form);
+                form.submit();
             }
-            document.body.appendChild(form);
-            form.submit();
-        }
-        else{
-            alert("삭제가 취소되었습니다.")
-        }
+            else{
+                alert("삭제가 취소되었습니다.")
+            }
         }
 
 
@@ -79,23 +75,7 @@
       }
 
     </script>
-</head>
-<body>
-<table style="position:relative;top:10px;left:200px;">
-    <tr><td>ⓘ</td><td>고객님의 안전이 최우선!</td></tr>
-    <tr><td></td><td>코로나19에 대한 여행안내</td></tr>
-</table>
-<hr style="border:1px color= silver;" width="90%">
-<a href="/"><img src="../static/img/playdata_logo.png" style="width:150px;height:40px;position:relative;top:10px;left:200px;"></a>
-{% if session.id %}
-<table style="position:relative;top:-15px;left:1200px;">
-    <tr><td>{{session.id}}님&nbsp</td><td><a href="/member/logout">로그아웃</a></td></tr>
-</table>
-{% else%}
-<table style="position:relative;top:-15px;left:1200px;">
-    <tr><td><a href="/member/">로그인</a></td></tr>
-</table>
-{% endif %}
+
 <table style="position:relative;top:50px;left:150px;font-size:30px;" >
     <tr><td>{{bd.title}}</td></tr>
 </table>
@@ -142,5 +122,6 @@ style="width:1150px;height:80px;padding-left:10px;padding-top:20px;resize:none;f
 id="content" name="content" placeholder="댓글을 입력하세요."></textarea></td></tr>
 </table>
 {% endif %}
-</body>
-</html>
+<br/><br/><br/>
+
+{% include 'footer.html' %}
