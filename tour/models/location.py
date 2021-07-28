@@ -166,7 +166,10 @@ class AreaService:
                         firstimage = item.find('firstimage').get_text()
                     else:
                         firstimage ='../../static/img/no_img.png'
-                    homepage = item.find('homepage').get_text()
+                    if item.find('homepage') is not None:
+                        homepage = item.find('homepage').get_text()
+                    else:
+                        homepage =''
                     '''
                     contenttypeid = item.find('contenttypeid').get_text()
                     createdtime = item.find('createdtime').get_text()

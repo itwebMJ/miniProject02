@@ -15,14 +15,11 @@
             }
             var str = document.getElementById("content").value;
             str = str.replace(/(?:\r\n|\r|\n)/g, '<br>');
-            for(i = 0; i < 4; ++i){
+            for(i = 0; i < 3; ++i){
                 var hiddenfield = document.createElement('input');
                 hiddenfield.setAttribute('name', check[i]);
                 if(i == 2){
                     hiddenfield.setAttribute('value', str);
-                }
-                else if(i ==3){
-                    hiddenfield.setAttribute('type', 'file');
                 }
                 else{
                     hiddenfield.setAttribute("value", document.getElementById(check[i]).value);
@@ -47,7 +44,6 @@
 <textarea rows="15" cols="45" wrap="hard"
 style="width:1200px;height:280px;position:relative;top:100px;left:150px;padding-left:10px;padding-top:30px;resize:none;font-size:15px;"
 id="content" name="content" placeholder="내용을 입력하세요."></textarea><br>
-<input type="file" name="img_path" id="img_path" style="position:relative;top:110px;left:150px;width:300px;height:30px;">
 <br/><br/><br/>
 
 {% include 'footer.html' %}

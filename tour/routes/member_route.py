@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, session
 import tour.models.member as m
 import matplotlib.pyplot as plt
-plt.rc('font', family = 'D2Coding')
+
 
 bp = Blueprint("member", __name__, url_prefix = "/member")
 member_service = m.cMember_service()
@@ -51,6 +51,9 @@ def logout() :
 
 @bp.route("/loc")
 def loc() :
+    # plt.rc('font', family='D2Coding')
+    plt.rcParams['font.family'] = 'Malgun Gothic'
+    plt.rcParams['axes.unicode_minus'] = False
     location = {"서울특별시":(290, 860), "인천광역시":(210, 880), "대전광역시":(350, 660), "대구광역시":(540, 570), "광주광역시":(240, 420),
                 "부산광역시":(640, 420), "울산광역시":(670, 510), "세종특별자치시":(350, 720), "경기도":(330, 810), "강원도":(480, 900),
                 "충청북도":(400, 740), "충청남도":(280, 680), "경상북도":(580, 670), "경상남도":(500, 450),

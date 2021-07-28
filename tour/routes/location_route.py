@@ -48,13 +48,12 @@ def interest() :
     loc_lst = loc.split()
     session["interest"] = loc_lst[0]
     member_service.Edit_member(loc_lst[0], session["id"])
-    return redirect("/location//list-detail?contentid="+str(contentid))
+    return redirect("/location/list-detail?contentid="+str(contentid))
 
 @bp.route('/recommend')
 def recommend():
     coronainfo = coronainfo_service.getCoronaGraph()
-    for i in range(1, 4):   #0번째는 검역
-        print(coronainfo[i].gubun)
+    #0번째는 검역
     areaList1 = areaService.searchKeyword(coronainfo[1].gubun, 5, 1)
     areaList2 = areaService.searchKeyword(coronainfo[2].gubun, 5, 1)
     areaList3 = areaService.searchKeyword(coronainfo[3].gubun, 5, 1)

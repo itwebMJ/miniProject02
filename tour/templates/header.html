@@ -19,8 +19,8 @@
 <a href="/"><img src="../static/img/playdata_logo.png" style="width:150px;height:40px;position:relative;top:10px;left:200px;"></a>
 <div class="search_form" style="position:absolute;top:85px;padding-left:900px;">
     <form action="/location/search" method="post">
-        <input type="text" name="keyword" class="search_input">
-        <input type="submit" value="" class="search_button">
+        <input type="text" name="keyword" style="width:150px;" class="search_input">
+        <input type="submit" value="" style="position:relative;top:15px;" class="search_button">
     </form>
 </div>
 
@@ -44,13 +44,13 @@ padding-left:10px;padding-right:10px;padding-top:10px;padding-bottom:10px;">
         <td colspan="3" style="font-size:30px;">어디로 떠나고 싶으세요?</td>
     </tr>
     <tr>
-        <td><input type="button" value="코로나 지역별 현황" onclick="location.href='/coronainfo/'"
+        <td><input type="button" class="btn_main" value="코로나 지역별 현황" onclick="location.href='/coronainfo/'"
                    style="width:400px;height:70px;background-color:Transparent;border:1px solid skyblue;font-size:20px;cursor:pointer;
                     border-top-right-radius:10px;border-top-left-radius:10px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></td>
-        <td><input type="button" value="지역별 관광지 검색" onclick="location.href='/location/area-code'"
+        <td><input type="button" class="btn_main" value="지역별 관광지 검색" onclick="location.href='/location/area-code'"
                    style="width:400px;height:70px;background-color:Transparent;border:1px solid skyblue;font-size:20px;cursor:pointer;
                     border-top-right-radius:10px;border-top-left-radius:10px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></td>
-        <td><input type="button" value="추천 관광지" onclick="location.href='/location/recommend'"
+        <td><input type="button" class="btn_main" value="추천 관광지" onclick="location.href='/location/recommend'"
                    style="width:400px;height:70px;background-color:Transparent;border:1px solid skyblue;font-size:20px;cursor:pointer;
                    border-top-right-radius:10px;border-top-left-radius:10px;border-bottom-right-radius:10px;border-bottom-left-radius:10px;"></td>
     </tr>
